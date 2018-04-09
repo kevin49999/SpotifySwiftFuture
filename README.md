@@ -1,6 +1,6 @@
-# OnlyFuture
+# Spotify-iOS-Swift-Future
 
-Using the Spotify iOS SDK to play only Future (in progress). Can use as a starting point for setting up Spotify's iOS SDK in Swift.
+Using the Spotify iOS SDK to play only Future (in progress). Can use as a starting point for using Spotify's iOS SDK in Swift.
 
 ![Platform iOS](https://img.shields.io/badge/platform-iOS-blue.svg)
 
