@@ -21,7 +21,6 @@ class LoginViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.spotifySessionUpdatedNotification), name: NSNotification.Name(rawValue: "SpotifySessionUpdated"), object: nil)
     }
     
-    
     // MARK: - Spotify Authentication Process
     
     private func openSpotifyLoginPage() {
@@ -62,4 +61,3 @@ class LoginViewController: UIViewController {
         openSpotifyLoginPage()
     }
 }
-

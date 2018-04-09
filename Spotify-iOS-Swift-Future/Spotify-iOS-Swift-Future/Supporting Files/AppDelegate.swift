@@ -14,12 +14,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        SPTAuth.defaultInstance().clientID = SpotifyPrivateCredentials.ClientID
-        SPTAuth.defaultInstance().redirectURL = URL(string: "com.onlyfuture://spotify-auth") // replace with yours
+        SPTAuth.defaultInstance().clientID = "replacewithyours" // replace with yours
+        SPTAuth.defaultInstance().redirectURL = URL(string: "replacewithyours://spotify-auth") // replace with yours
         //SPTAuth.defaultInstance().tokenSwapURL = URL(string: "http://localhost:1234/swap")
         SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope]
         //SPTAuth.defaultInstance().tokenRefreshURL = URL(string: "http://localhost:1234/refresh")!
         SPTAuth.defaultInstance().sessionUserDefaultsKey = "SpotifySession"
+        
+        if SPTAuth.defaultInstance().session != nil && SPTAuth.defaultInstance().session.isValid() {
+            let playerViewController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: PlayerViewController.identifier()) as! PlayerViewController
+            window?.rootViewController = playerViewController
+        }
         return true
     }
     

@@ -144,4 +144,3 @@ extension Double {
         return "\(minutes):\(String(format: "%02d", seconds))"
     }
 }
-
