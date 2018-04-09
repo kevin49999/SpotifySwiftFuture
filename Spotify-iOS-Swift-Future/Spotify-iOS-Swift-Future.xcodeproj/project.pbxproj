@@ -14,7 +14,6 @@
 		0A6888D4207AEEC900BBA29F /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A6888D1207AEEC900BBA29F /* SpotifyAuthentication.framework */; };
 		0A6888D5207AEEC900BBA29F /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A6888D2207AEEC900BBA29F /* SpotifyMetadata.framework */; };
 		0A6888DD207AF13A00BBA29F /* SpotifyMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6888DC207AF13A00BBA29F /* SpotifyMusicPlayer.swift */; };
-		0A6888DF207AF14B00BBA29F /* SpotifyCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6888DE207AF14B00BBA29F /* SpotifyCredentials.swift */; };
 		0A6888E1207AF15900BBA29F /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6888E0207AF15900BBA29F /* PlayerViewController.swift */; };
 		0A6888E3207AF16D00BBA29F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6888E2207AF16C00BBA29F /* WebViewController.swift */; };
 		0A6888E5207AF17C00BBA29F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6888E4207AF17C00BBA29F /* LoginViewController.swift */; };
@@ -48,7 +47,6 @@
 		0A6888D8207AF03C00BBA29F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0A6888DA207AF04D00BBA29F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0A6888DC207AF13A00BBA29F /* SpotifyMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyMusicPlayer.swift; sourceTree = "<group>"; };
-		0A6888DE207AF14B00BBA29F /* SpotifyCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyCredentials.swift; sourceTree = "<group>"; };
 		0A6888E0207AF15900BBA29F /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		0A6888E2207AF16C00BBA29F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		0A6888E4207AF17C00BBA29F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -131,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				0A6888DC207AF13A00BBA29F /* SpotifyMusicPlayer.swift */,
-				0A6888DE207AF14B00BBA29F /* SpotifyCredentials.swift */,
 			);
 			path = "Spotify Player";
 			sourceTree = "<group>";
@@ -225,6 +222,11 @@
 					0A6888A7207AEE2B00BBA29F = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					0A6888BB207AEE2B00BBA29F = {
 						CreatedOnToolsVersion = 9.2;
@@ -281,7 +283,6 @@
 				0A6888E3207AF16D00BBA29F /* WebViewController.swift in Sources */,
 				0A6888AC207AEE2B00BBA29F /* AppDelegate.swift in Sources */,
 				0A6888DD207AF13A00BBA29F /* SpotifyMusicPlayer.swift in Sources */,
-				0A6888DF207AF14B00BBA29F /* SpotifyCredentials.swift in Sources */,
 				0A6888E1207AF15900BBA29F /* PlayerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
