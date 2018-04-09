@@ -143,9 +143,5 @@ extension Double {
         let seconds = secondsInt % 60
         return "\(minutes):\(String(format: "%02d", seconds))"
     }
-    
-    func createDateWithAPITimestamp() -> Date? {
-        return Date.init(timeIntervalSince1970: self)
-    }
 }
 
