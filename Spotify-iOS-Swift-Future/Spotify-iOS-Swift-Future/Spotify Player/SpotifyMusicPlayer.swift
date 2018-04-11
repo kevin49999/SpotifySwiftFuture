@@ -22,10 +22,6 @@ class SpotifyMusicPlayer: NSObject {
         super.init()
         if !SPTAudioStreamingController.sharedInstance().initialized {
             handleNewSpotifySession()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.playSpotifyURI(uri: "spotify:user:1216066679:playlist:7d7fTjXToSTR5Spv6yT6Ws")
-                SPTAudioStreamingController.sharedInstance().setIsPlaying(true, callback: nil)
-            }
         }
     }
     
@@ -130,6 +126,10 @@ extension SpotifyMusicPlayer: SPTAudioStreamingPlaybackDelegate {
 extension SpotifyMusicPlayer: SPTAudioStreamingDelegate {
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didReceiveMessage message: String) {
         print("Message from Spotify: \(message)")
+    }
+    
+    func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
+        playSpotifyURI(uri: "spotify:user:1216066679:playlist:7d7fTjXToSTR5Spv6yT6Ws")
     }
 }
 
