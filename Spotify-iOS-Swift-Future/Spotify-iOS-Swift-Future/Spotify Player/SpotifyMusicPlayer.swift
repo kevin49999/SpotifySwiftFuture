@@ -23,6 +23,8 @@ class SpotifyMusicPlayer: NSObject {
         if !SPTAudioStreamingController.sharedInstance().initialized {
             handleNewSpotifySession()
         }
+        SPTAudioStreamingController.sharedInstance().delegate = self
+        SPTAudioStreamingController.sharedInstance().playbackDelegate = self
     }
     
     // MARK: - Play Spotify URI
@@ -75,11 +77,9 @@ class SpotifyMusicPlayer: NSObject {
     // MARK: - Spotify Audio Session
     
     private func handleNewSpotifySession() {
+        guard let accessToken = SPTAuth.defaultInstance().session?.accessToken else { return }
         do {
-            guard let accessToken = SPTAuth.defaultInstance().session.accessToken else { return }
             try SPTAudioStreamingController.sharedInstance().start(withClientId: SPTAuth.defaultInstance().clientID, audioController: nil, allowCaching: true)
-            SPTAudioStreamingController.sharedInstance().delegate = self
-            SPTAudioStreamingController.sharedInstance().playbackDelegate = self
             SPTAudioStreamingController.sharedInstance().diskCache = SPTDiskCache()
             SPTAudioStreamingController.sharedInstance().login(withAccessToken: accessToken)
         } catch let error {
