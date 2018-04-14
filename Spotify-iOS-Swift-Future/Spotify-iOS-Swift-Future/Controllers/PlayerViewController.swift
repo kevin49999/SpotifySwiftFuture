@@ -128,7 +128,7 @@ class PlayerViewController: UIViewController {
     }
     
     @IBAction func tapPrevious(_ sender: UIButton) {
-        spotifyMusicPlayer.goToPrevious()
+        spotifyMusicPlayer.handlePrevious()
     }
     
     @IBAction func trackingSliderTouchDown(_ sender: UISlider) {

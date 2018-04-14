@@ -46,8 +46,13 @@ class SpotifyMusicPlayer: NSObject {
     
     // MARK: Next/Previous
     
-    public func goToPrevious() {
-        SPTAudioStreamingController.sharedInstance().skipPrevious(nil)
+    public func handlePrevious() {
+        guard let playbackState = SPTAudioStreamingController.sharedInstance().playbackState else { return }
+        if playbackState.position <= 3.0 {
+            SPTAudioStreamingController.sharedInstance().skipPrevious(nil)
+        } else {
+            SPTAudioStreamingController.sharedInstance().seek(to: 0.0, callback: nil)
+        }
     }
     
     public func goToNext() {
