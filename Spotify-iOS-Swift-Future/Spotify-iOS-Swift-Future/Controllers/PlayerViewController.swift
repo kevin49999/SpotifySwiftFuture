@@ -20,41 +20,19 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak private var playPauseButton: UIButton!
     @IBOutlet weak private var currentTimeLabel: UILabel!
     @IBOutlet weak private var endTimeLabel: UILabel!
-    
+    @IBOutlet weak private var shuffleButton: UIButton!
+
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(currentTrackChangedNotification(notification:)), name: NSNotification.Name.init("TrackChanged"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(currentTrackPlaybackStatusChanged(notification:)), name: NSNotification.Name.init("TrackPlaybackChanged"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(currentTrackPositionChanged(notification:)), name: NSNotification.Name.init("TrackPositionUpdate"), object: nil)
+        registerForNotifications()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
-    }
-    
-    // MARK: - Notifications
-    
-    @objc func currentTrackChangedNotification(notification: NSNotification) {
-        if let track = notification.object as? SPTPlaybackTrack {
-            currentTrackChanged(track: track)
-        }
-    }
-    
-    @objc func currentTrackPlaybackStatusChanged(notification: NSNotification) {
-        if let isPlaying = notification.object as? Bool {
-            currentTrackDidChangePlaybackStatus(isPlaying: isPlaying)
-        }
-    }
-    
-    @objc func currentTrackPositionChanged(notification: NSNotification) {
-        if let trackPosition = notification.object as? TrackPosition {
-            currentTrackPositionUpdated(position: trackPosition.position, totalDuration: trackPosition.totalDuration)
-        }
     }
     
     // MARK: - Update Current Track
@@ -89,13 +67,53 @@ class PlayerViewController: UIViewController {
         playbackSlider.value = value
     }
     
-    private func currentTrackDidChangePlaybackStatus(isPlaying: Bool) {
+    private func currentTrackDidChangePlaying(isPlaying: Bool) {
         if isPlaying {
             playPauseButton.setTitle("Pause", for: .normal)
             spotifyMusicPlayer.activateAudioSession()
         } else {
             playPauseButton.setTitle("Play", for: .normal)
             spotifyMusicPlayer.deactivateAudioSession()
+        }
+    }
+    
+    private func currentTrackDidChangeShuffling(isShuffling: Bool) {
+        if isShuffling {
+            shuffleButton.titleLabel?.textColor = UIColor.init(red: 166.0/255.0, green: 1.0, blue: 152.0/255.0, alpha: 1.0)
+        } else {
+            shuffleButton.titleLabel?.textColor = .darkGray
+        }
+    }
+    
+    // MARK: - Notifications
+    
+    private func registerForNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(currentTrackChangedNotification(notification:)), name: NSNotification.Name.init("TrackChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentTrackIsPlayingChanged(notification:)), name: NSNotification.Name.init("TrackIsPlayingChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentTrackIsShufflingChanged(notification:)), name: NSNotification.Name.init("TrackIsShufflingChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentTrackPositionChanged(notification:)), name: NSNotification.Name.init("TrackPositionUpdate"), object: nil)
+    }
+    
+    @objc func currentTrackChangedNotification(notification: NSNotification) {
+        if let track = notification.object as? SPTPlaybackTrack {
+            currentTrackChanged(track: track)
+        }
+    }
+    
+    @objc func currentTrackIsPlayingChanged(notification: NSNotification) {
+        if let isPlaying = notification.object as? Bool {
+            currentTrackDidChangePlaying(isPlaying: isPlaying)
+        }
+    }
+    @objc func currentTrackIsShufflingChanged(notification: NSNotification) {
+        if let isShuffling = notification.object as? Bool {
+            currentTrackDidChangeShuffling(isShuffling: isShuffling)
+        }
+    }
+    
+    @objc func currentTrackPositionChanged(notification: NSNotification) {
+        if let trackPosition = notification.object as? TrackPosition {
+            currentTrackPositionUpdated(position: trackPosition.position, totalDuration: trackPosition.totalDuration)
         }
     }
     
@@ -123,6 +141,10 @@ class PlayerViewController: UIViewController {
     
     @IBAction func trackingSliderTouchInside(_ sender: UISlider) {
         spotifyMusicPlayer.finishedSeekingWithSlider(sliderValue: sender.value)
+    }
+    
+    @IBAction func tapShuffle(_ sender: UIButton) {
+        spotifyMusicPlayer.handleShuffle()
     }
 }
 

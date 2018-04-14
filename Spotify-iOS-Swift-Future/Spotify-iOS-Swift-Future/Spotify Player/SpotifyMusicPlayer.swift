@@ -40,8 +40,8 @@ class SpotifyMusicPlayer: NSObject {
     // MARK: - Play/Pause
     
     public func handePlayPause() {
-        guard let playbackStatus = SPTAudioStreamingController.sharedInstance().playbackState else { return }
-        SPTAudioStreamingController.sharedInstance().setIsPlaying(!playbackStatus.isPlaying, callback: nil)
+        guard let playbackState = SPTAudioStreamingController.sharedInstance().playbackState else { return }
+        SPTAudioStreamingController.sharedInstance().setIsPlaying(!playbackState.isPlaying, callback: nil)
     }
     
     // MARK: Next/Previous
@@ -72,6 +72,13 @@ class SpotifyMusicPlayer: NSObject {
         guard let currentTrack = SPTAudioStreamingController.sharedInstance().metadata?.currentTrack else { return }
         let destination = currentTrack.duration * Double(sliderValue)
         SPTAudioStreamingController.sharedInstance().seek(to: destination, callback: nil)
+    }
+    
+    // MARK: - Shuffle
+    
+    public func handleShuffle() {
+        guard let playbackState = SPTAudioStreamingController.sharedInstance().playbackState else { return }
+        SPTAudioStreamingController.sharedInstance().setShuffle(!playbackState.isShuffling, callback: nil)
     }
     
     // MARK: - Spotify Audio Session
@@ -106,12 +113,16 @@ extension SpotifyMusicPlayer: SPTAudioStreamingPlaybackDelegate {
         NotificationCenter.default.post(name: NSNotification.Name.init("TrackChanged"), object: currentTrack)
     }
     
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeShuffleStatus enabled: Bool) {
+        NotificationCenter.default.post(name: NSNotification.Name.init("TrackIsShufflingChanged"), object: enabled)
+    }
+    
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didChangePlaybackStatus isPlaying: Bool) {
-        NotificationCenter.default.post(name: NSNotification.Name.init("TrackPlaybackChanged"), object: isPlaying)
+        NotificationCenter.default.post(name: NSNotification.Name.init("TrackIsPlayingChanged"), object: isPlaying)
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didChangePosition position: TimeInterval) {
-        guard !isChangingProgress, let currentTrack = SPTAudioStreamingController.sharedInstance().metadata.currentTrack else { return }
+        guard !isChangingProgress, let currentTrack = SPTAudioStreamingController.sharedInstance().metadata?.currentTrack else { return }
         let trackPosition = TrackPosition(position, currentTrack.duration)
         NotificationCenter.default.post(name: NSNotification.Name.init("TrackPositionUpdate"), object: trackPosition)
     }
