@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PlayerViewController: UIViewController {
     
@@ -69,10 +70,10 @@ class PlayerViewController: UIViewController {
     private func currentTrackDidChangePlaying(isPlaying: Bool) {
         if isPlaying {
             playPauseButton.setTitle("Pause", for: .normal)
-            spotifyMusicPlayer.activateAudioSession()
+            AVAudioSession.activateAudioSession()
         } else {
             playPauseButton.setTitle("Play", for: .normal)
-            spotifyMusicPlayer.deactivateAudioSession()
+            AVAudioSession.deactivateAudioSession()
         }
     }
     

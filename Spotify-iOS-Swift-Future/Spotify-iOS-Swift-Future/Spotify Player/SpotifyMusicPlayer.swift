@@ -6,8 +6,6 @@
 //  Copyright © 2018 FFR. All rights reserved.
 //
 
-import AVFoundation
-
 class SpotifyMusicPlayer: NSObject {
     
     // MARK: - Variables
@@ -144,28 +142,5 @@ extension SpotifyMusicPlayer: SPTAudioStreamingDelegate {
     
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
         playSpotifyURI(uri: "spotify:user:1216066679:playlist:7d7fTjXToSTR5Spv6yT6Ws")
-    }
-}
-
-// MARK: - Audio Session
-
-extension SpotifyMusicPlayer {
-    func activateAudioSession() {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
-        }
-        catch let error {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func deactivateAudioSession() {
-        do {
-            try AVAudioSession.sharedInstance().setActive(false)
-        }
-        catch let error {
-            print(error.localizedDescription)
-        }
     }
 }
