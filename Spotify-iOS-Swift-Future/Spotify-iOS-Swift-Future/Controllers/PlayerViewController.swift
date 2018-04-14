@@ -40,7 +40,7 @@ class PlayerViewController: UIViewController {
     private func currentTrackChanged(track: SPTPlaybackTrack) {
         songLabel.text = track.name
         artistLabel.text = track.artistName
-        endTimeLabel.text = track.duration.seconds()
+        endTimeLabel.text = track.duration.minutesSeconds()
         if let albumCoverURLString = track.albumCoverArtURL, let albumCoverURL = URL.init(string: albumCoverURLString) {
             setAlbumCoverWithURL(url: albumCoverURL)
         }
@@ -60,11 +60,10 @@ class PlayerViewController: UIViewController {
         }
     }
     
-    private func currentTrackPositionUpdated(position: TimeInterval, totalDuration: TimeInterval) {
-        currentTimeLabel.text = position.seconds()
-        endTimeLabel.text = (totalDuration - position).seconds()
-        let value = Float(position / totalDuration)
-        playbackSlider.value = value
+    private func currentTrackPositionUpdated(trackPosition: TrackPosition) {
+        currentTimeLabel.text = trackPosition.currentTime()
+        endTimeLabel.text = trackPosition.remainingTime()
+        playbackSlider.value = trackPosition.currentValue()
     }
     
     private func currentTrackDidChangePlaying(isPlaying: Bool) {
@@ -113,7 +112,7 @@ class PlayerViewController: UIViewController {
     
     @objc func currentTrackPositionChanged(notification: NSNotification) {
         if let trackPosition = notification.object as? TrackPosition {
-            currentTrackPositionUpdated(position: trackPosition.position, totalDuration: trackPosition.totalDuration)
+            currentTrackPositionUpdated(trackPosition: trackPosition)
         }
     }
     
@@ -153,16 +152,5 @@ class PlayerViewController: UIViewController {
 extension PlayerViewController {
     class func identifier()-> String {
         return "PlayerViewControllerIdentifier"
-    }
-}
-
-// MARK: - Seconds Extension
-
-extension Double {
-    func seconds() -> String {
-        let secondsInt = Int(self.rounded())
-        let minutes = secondsInt / 60
-        let seconds = secondsInt % 60
-        return "\(minutes):\(String(format: "%02d", seconds))"
     }
 }

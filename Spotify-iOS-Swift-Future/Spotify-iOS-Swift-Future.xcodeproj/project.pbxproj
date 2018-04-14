@@ -19,6 +19,8 @@
 		0A6888E5207AF17C00BBA29F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6888E4207AF17C00BBA29F /* LoginViewController.swift */; };
 		0A6888EA207AF57C00BBA29F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A6888B4207AEE2B00BBA29F /* LaunchScreen.storyboard */; };
 		0A6888EC207AF59F00BBA29F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A6888EB207AF59F00BBA29F /* Main.storyboard */; };
+		0AD9F206208285FA007BEDBD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9F205208285FA007BEDBD /* Extensions.swift */; };
+		0AD9F20820828632007BEDBD /* TrackPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9F20720828632007BEDBD /* TrackPosition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		0A6888E2207AF16C00BBA29F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		0A6888E4207AF17C00BBA29F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0A6888EB207AF59F00BBA29F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0AD9F205208285FA007BEDBD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0AD9F20720828632007BEDBD /* TrackPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPosition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +151,9 @@
 			children = (
 				0A6888AB207AEE2B00BBA29F /* AppDelegate.swift */,
 				0A6888B2207AEE2B00BBA29F /* Assets.xcassets */,
+				0AD9F205208285FA007BEDBD /* Extensions.swift */,
 				0A6888B7207AEE2B00BBA29F /* Info.plist */,
+				0AD9F20720828632007BEDBD /* TrackPosition.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -280,10 +286,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A6888E5207AF17C00BBA29F /* LoginViewController.swift in Sources */,
+				0AD9F206208285FA007BEDBD /* Extensions.swift in Sources */,
 				0A6888E3207AF16D00BBA29F /* WebViewController.swift in Sources */,
 				0A6888AC207AEE2B00BBA29F /* AppDelegate.swift in Sources */,
 				0A6888DD207AF13A00BBA29F /* SpotifyMusicPlayer.swift in Sources */,
 				0A6888E1207AF15900BBA29F /* PlayerViewController.swift in Sources */,
+				0AD9F20820828632007BEDBD /* TrackPosition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

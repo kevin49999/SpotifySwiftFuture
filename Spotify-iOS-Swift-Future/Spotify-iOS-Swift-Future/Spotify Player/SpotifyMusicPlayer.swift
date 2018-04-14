@@ -8,8 +8,6 @@
 
 import AVFoundation
 
-typealias TrackPosition = (position: TimeInterval, totalDuration: TimeInterval)
-
 class SpotifyMusicPlayer: NSObject {
     
     // MARK: - Variables
@@ -67,8 +65,8 @@ class SpotifyMusicPlayer: NSObject {
     
     public func seekWithSlider(sliderValue: Float) {
         guard let currentTrack = SPTAudioStreamingController.sharedInstance().metadata?.currentTrack else { return }
-        let position = currentTrack.duration * Double(sliderValue)
-        let trackPosition = TrackPosition(position, currentTrack.duration)
+        let currentPosition = currentTrack.duration * Double(sliderValue)
+        let trackPosition = TrackPosition(currentPosition: currentPosition, totalDuration: currentTrack.duration)
         NotificationCenter.default.post(name: NSNotification.Name.init("TrackPositionUpdate"), object: trackPosition)
     }
     
@@ -128,7 +126,7 @@ extension SpotifyMusicPlayer: SPTAudioStreamingPlaybackDelegate {
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didChangePosition position: TimeInterval) {
         guard !isChangingProgress, let currentTrack = SPTAudioStreamingController.sharedInstance().metadata?.currentTrack else { return }
-        let trackPosition = TrackPosition(position, currentTrack.duration)
+        let trackPosition = TrackPosition(currentPosition: position, totalDuration: currentTrack.duration)
         NotificationCenter.default.post(name: NSNotification.Name.init("TrackPositionUpdate"), object: trackPosition)
     }
     
