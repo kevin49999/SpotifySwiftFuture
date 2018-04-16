@@ -105,6 +105,7 @@ class PlayerViewController: UIViewController {
             currentTrackDidChangePlaying(isPlaying: isPlaying)
         }
     }
+    
     @objc func currentTrackIsShufflingChanged(notification: NSNotification) {
         if let isShuffling = notification.object as? Bool {
             currentTrackDidChangeShuffling(isShuffling: isShuffling)
