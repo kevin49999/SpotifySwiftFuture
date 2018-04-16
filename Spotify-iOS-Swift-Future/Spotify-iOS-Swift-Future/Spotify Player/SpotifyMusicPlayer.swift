@@ -11,7 +11,7 @@ class SpotifyMusicPlayer: NSObject {
     // MARK: - Variables
     
     private var audioStreamingController: SPTAudioStreamingController?
-    private var isChangingProgress: Bool = false
+    private var isSeeking: Bool = false
     
     // MARK: - Init
     
@@ -59,7 +59,7 @@ class SpotifyMusicPlayer: NSObject {
     // MARK: Seek With Slider
     
     public func startSeekingWithSlider() {
-        isChangingProgress = true
+        isSeeking = true
     }
     
     public func seekWithSlider(sliderValue: Float) {
@@ -70,7 +70,7 @@ class SpotifyMusicPlayer: NSObject {
     }
     
     public func finishedSeekingWithSlider(sliderValue: Float) {
-        isChangingProgress = false
+        isSeeking = false
         guard let currentTrack = audioStreamingController?.metadata?.currentTrack else { return }
         let destination = currentTrack.duration * Double(sliderValue)
         audioStreamingController?.seek(to: destination, callback: nil)
@@ -129,7 +129,7 @@ extension SpotifyMusicPlayer: SPTAudioStreamingPlaybackDelegate {
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didChangePosition position: TimeInterval) {
-        guard !isChangingProgress, let currentTrack = audioStreamingController?.metadata?.currentTrack else { return }
+        guard !isSeeking, let currentTrack = audioStreamingController?.metadata?.currentTrack else { return }
         let trackPosition = TrackPosition(currentPosition: position, totalDuration: currentTrack.duration)
         NotificationCenter.default.post(name: NSNotification.Name.init("TrackPositionUpdate"), object: trackPosition)
     }
