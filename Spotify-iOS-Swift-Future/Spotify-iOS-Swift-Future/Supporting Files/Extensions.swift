@@ -26,8 +26,7 @@ extension AVAudioSession {
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
-        }
-        catch let error {
+        } catch let error {
             print(error.localizedDescription)
         }
     }
@@ -35,8 +34,7 @@ extension AVAudioSession {
     static func deactivateAudioSession() {
         do {
             try AVAudioSession.sharedInstance().setActive(false)
-        }
-        catch let error {
+        } catch let error {
             print(error.localizedDescription)
         }
     }

@@ -10,23 +10,24 @@ class SpotifyMusicPlayer: NSObject {
     
     // MARK: - Variables
     
+    private var audioStreamingController: SPTAudioStreamingController?
     private var isChangingProgress: Bool = false
     
     // MARK: - Init
     
     override init() {
         super.init()
-        if !SPTAudioStreamingController.sharedInstance().initialized {
-            handleNewSpotifySession()
+        if let accessToken = SPTAuth.defaultInstance().session?.accessToken {
+            handleNewSpotifySession(accessToken: accessToken)
+        } else {
+            closeSpotifySession()
         }
-        SPTAudioStreamingController.sharedInstance().delegate = self
-        SPTAudioStreamingController.sharedInstance().playbackDelegate = self
     }
     
     // MARK: - Play Spotify URI
     
     private func playSpotifyURI(uri: String) {
-        SPTAudioStreamingController.sharedInstance().playSpotifyURI(uri, startingWith: 0, startingWithPosition: 0) { error in
+        audioStreamingController?.playSpotifyURI(uri, startingWith: 0, startingWithPosition: 0) { error in
             if error != nil {
                 print("Failed to play: \(error.debugDescription)")
             }
@@ -36,23 +37,23 @@ class SpotifyMusicPlayer: NSObject {
     // MARK: - Play/Pause
     
     public func handePlayPause() {
-        guard let playbackState = SPTAudioStreamingController.sharedInstance().playbackState else { return }
-        SPTAudioStreamingController.sharedInstance().setIsPlaying(!playbackState.isPlaying, callback: nil)
+        guard let playbackState = audioStreamingController?.playbackState else { return }
+        audioStreamingController?.setIsPlaying(!playbackState.isPlaying, callback: nil)
     }
     
     // MARK: Next/Previous
     
     public func handlePrevious() {
-        guard let playbackState = SPTAudioStreamingController.sharedInstance().playbackState else { return }
+        guard let playbackState = audioStreamingController?.playbackState else { return }
         if playbackState.position <= 3.0 {
-            SPTAudioStreamingController.sharedInstance().skipPrevious(nil)
+            audioStreamingController?.skipPrevious(nil)
         } else {
-            SPTAudioStreamingController.sharedInstance().seek(to: 0.0, callback: nil)
+            audioStreamingController?.seek(to: 0.0, callback: nil)
         }
     }
     
     public func goToNext() {
-        SPTAudioStreamingController.sharedInstance().skipNext(nil)
+        audioStreamingController?.skipNext(nil)
     }
     
     // MARK: Seek With Slider
@@ -62,7 +63,7 @@ class SpotifyMusicPlayer: NSObject {
     }
     
     public func seekWithSlider(sliderValue: Float) {
-        guard let currentTrack = SPTAudioStreamingController.sharedInstance().metadata?.currentTrack else { return }
+        guard let currentTrack = audioStreamingController?.metadata?.currentTrack else { return }
         let currentPosition = currentTrack.duration * Double(sliderValue)
         let trackPosition = TrackPosition(currentPosition: currentPosition, totalDuration: currentTrack.duration)
         NotificationCenter.default.post(name: NSNotification.Name.init("TrackPositionUpdate"), object: trackPosition)
@@ -70,39 +71,44 @@ class SpotifyMusicPlayer: NSObject {
     
     public func finishedSeekingWithSlider(sliderValue: Float) {
         isChangingProgress = false
-        guard let currentTrack = SPTAudioStreamingController.sharedInstance().metadata?.currentTrack else { return }
+        guard let currentTrack = audioStreamingController?.metadata?.currentTrack else { return }
         let destination = currentTrack.duration * Double(sliderValue)
-        SPTAudioStreamingController.sharedInstance().seek(to: destination, callback: nil)
+        audioStreamingController?.seek(to: destination, callback: nil)
     }
     
     // MARK: - Shuffle
     
     public func handleShuffle() {
-        guard let playbackState = SPTAudioStreamingController.sharedInstance().playbackState else { return }
-        SPTAudioStreamingController.sharedInstance().setShuffle(!playbackState.isShuffling, callback: nil)
+        guard let playbackState = audioStreamingController?.playbackState else { return }
+        audioStreamingController?.setShuffle(!playbackState.isShuffling, callback: nil)
     }
     
     // MARK: - Spotify Audio Session
     
-    private func handleNewSpotifySession() {
-        guard let accessToken = SPTAuth.defaultInstance().session?.accessToken else { return }
-        do {
-            try SPTAudioStreamingController.sharedInstance().start(withClientId: SPTAuth.defaultInstance().clientID, audioController: nil, allowCaching: true)
-            SPTAudioStreamingController.sharedInstance().diskCache = SPTDiskCache()
-            SPTAudioStreamingController.sharedInstance().login(withAccessToken: accessToken)
-        } catch let error {
-            print("Error starting spotify session: \(error.localizedDescription)")
-            closeSpotifySession()
+    public func handleNewSpotifySession(accessToken: String) {
+        if self.audioStreamingController == nil {
+            self.audioStreamingController = SPTAudioStreamingController.sharedInstance()
+            do {
+                try audioStreamingController?.start(withClientId: SPTAuth.defaultInstance().clientID, audioController: nil, allowCaching: true)
+                audioStreamingController?.delegate = self
+                audioStreamingController?.playbackDelegate = self
+                audioStreamingController?.diskCache = SPTDiskCache()
+                audioStreamingController?.login(withAccessToken: accessToken)
+            } catch let error {
+                self.audioStreamingController = nil
+                print("Error starting spotify session: \(error.localizedDescription)")
+                closeSpotifySession()
+            }
         }
     }
     
     private func closeSpotifySession() {
         do {
-            try SPTAudioStreamingController.sharedInstance().stop()
-            SPTAuth.defaultInstance().session = nil
+            try audioStreamingController?.stop()
         } catch let error {
             print("Error closing spotify session: \(error.localizedDescription)")
         }
+        SPTAuth.defaultInstance().session = nil
     }
 }
 
@@ -123,7 +129,7 @@ extension SpotifyMusicPlayer: SPTAudioStreamingPlaybackDelegate {
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didChangePosition position: TimeInterval) {
-        guard !isChangingProgress, let currentTrack = SPTAudioStreamingController.sharedInstance().metadata?.currentTrack else { return }
+        guard !isChangingProgress, let currentTrack = audioStreamingController?.metadata?.currentTrack else { return }
         let trackPosition = TrackPosition(currentPosition: position, totalDuration: currentTrack.duration)
         NotificationCenter.default.post(name: NSNotification.Name.init("TrackPositionUpdate"), object: trackPosition)
     }
