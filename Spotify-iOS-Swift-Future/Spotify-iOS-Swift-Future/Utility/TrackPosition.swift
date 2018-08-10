@@ -9,23 +9,23 @@
 import Foundation
 
 struct TrackPosition {
-    var currentPosition: TimeInterval!
-    var totalDuration: TimeInterval!
+    let currentPosition: TimeInterval
+    let totalDuration: TimeInterval
     
     init(currentPosition: TimeInterval, totalDuration: TimeInterval) {
         self.currentPosition = currentPosition
         self.totalDuration = totalDuration
     }
     
-    func currentTime() -> String {
+    var currentTime: String {
         return currentPosition.minutesSeconds()
     }
     
-    func remainingTime() -> String {
+    var remainingTime: String {
         return (totalDuration - currentPosition).minutesSeconds()
     }
     
-    func currentValue() -> Float {
+    var currentValue: Float {
         return Float(currentPosition / totalDuration)
     }
 }

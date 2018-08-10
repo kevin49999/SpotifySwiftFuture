@@ -66,7 +66,7 @@ class SpotifyMusicPlayer: NSObject {
         guard let currentTrack = audioStreamingController?.metadata?.currentTrack else { return }
         let currentPosition = currentTrack.duration * Double(sliderValue)
         let trackPosition = TrackPosition(currentPosition: currentPosition, totalDuration: currentTrack.duration)
-        NotificationCenter.default.post(name: NSNotification.Name.init("TrackPositionUpdate"), object: trackPosition)
+        NotificationCenter.default.post(name: .trackPositionUpdate, object: trackPosition)
     }
     
     public func finishedSeekingWithSlider(sliderValue: Float) {
@@ -117,21 +117,21 @@ class SpotifyMusicPlayer: NSObject {
 extension SpotifyMusicPlayer: SPTAudioStreamingPlaybackDelegate {
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didChange metadata: SPTPlaybackMetadata) {
         guard let currentTrack = metadata.currentTrack else { return }
-        NotificationCenter.default.post(name: NSNotification.Name.init("TrackChanged"), object: currentTrack)
+        NotificationCenter.default.post(name: .trackChanged, object: currentTrack)
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeShuffleStatus enabled: Bool) {
-        NotificationCenter.default.post(name: NSNotification.Name.init("TrackIsShufflingChanged"), object: enabled)
+        NotificationCenter.default.post(name: .trackIsShufflingChanged, object: enabled)
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didChangePlaybackStatus isPlaying: Bool) {
-        NotificationCenter.default.post(name: NSNotification.Name.init("TrackIsPlayingChanged"), object: isPlaying)
+        NotificationCenter.default.post(name: .trackIsPlayingChanged, object: isPlaying)
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didChangePosition position: TimeInterval) {
         guard !isSeeking, let currentTrack = audioStreamingController?.metadata?.currentTrack else { return }
         let trackPosition = TrackPosition(currentPosition: position, totalDuration: currentTrack.duration)
-        NotificationCenter.default.post(name: NSNotification.Name.init("TrackPositionUpdate"), object: trackPosition)
+        NotificationCenter.default.post(name: .trackPositionUpdate, object: trackPosition)
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didReceiveError error: Error?) {

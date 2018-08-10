@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.spotifySessionUpdatedNotification), name: NSNotification.Name(rawValue: "SpotifySessionUpdated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.spotifySessionUpdatedNotification), name: .spotifySessionUpdated, object: nil)
     }
     
     // MARK: - Spotify Authentication Process
@@ -53,7 +53,7 @@ class LoginViewController: UIViewController {
     }
     
     private func transitionToPlayerViewController() {
-        let playerViewController = storyboard?.instantiateViewController(withIdentifier: PlayerViewController.identifier()) as! PlayerViewController
+        let playerViewController = storyboard?.instantiateViewController(withIdentifier: PlayerViewController.identifier) as! PlayerViewController
         navigationController?.pushViewController(playerViewController, animated: true)
     }
     

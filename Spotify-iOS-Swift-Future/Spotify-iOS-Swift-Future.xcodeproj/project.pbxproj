@@ -19,8 +19,12 @@
 		0A6888E5207AF17C00BBA29F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6888E4207AF17C00BBA29F /* LoginViewController.swift */; };
 		0A6888EA207AF57C00BBA29F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A6888B4207AEE2B00BBA29F /* LaunchScreen.storyboard */; };
 		0A6888EC207AF59F00BBA29F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A6888EB207AF59F00BBA29F /* Main.storyboard */; };
-		0AD9F206208285FA007BEDBD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9F205208285FA007BEDBD /* Extensions.swift */; };
 		0AD9F20820828632007BEDBD /* TrackPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9F20720828632007BEDBD /* TrackPosition.swift */; };
+		52A79EFB211E199D00902C32 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A79EFA211E199D00902C32 /* Secrets.swift */; };
+		52A79EFE211E1B1400902C32 /* AVAudioSession+Activate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A79EFD211E1B1400902C32 /* AVAudioSession+Activate.swift */; };
+		52A79F00211E1B2400902C32 /* Double+MinutesSeconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A79EFF211E1B2400902C32 /* Double+MinutesSeconds.swift */; };
+		52A79F02211E1C2900902C32 /* NotificationCenter+TypeSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A79F01211E1C2900902C32 /* NotificationCenter+TypeSafe.swift */; };
+		52A79F04211E1C4800902C32 /* Notifications+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A79F03211E1C4800902C32 /* Notifications+Names.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +57,12 @@
 		0A6888E2207AF16C00BBA29F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		0A6888E4207AF17C00BBA29F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0A6888EB207AF59F00BBA29F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		0AD9F205208285FA007BEDBD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0AD9F20720828632007BEDBD /* TrackPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPosition.swift; sourceTree = "<group>"; };
+		52A79EFA211E199D00902C32 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		52A79EFD211E1B1400902C32 /* AVAudioSession+Activate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Activate.swift"; sourceTree = "<group>"; };
+		52A79EFF211E1B2400902C32 /* Double+MinutesSeconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+MinutesSeconds.swift"; sourceTree = "<group>"; };
+		52A79F01211E1C2900902C32 /* NotificationCenter+TypeSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+TypeSafe.swift"; sourceTree = "<group>"; };
+		52A79F03211E1C4800902C32 /* Notifications+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications+Names.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +114,7 @@
 				0A6888CC207AEE7E00BBA29F /* Spotify Player */,
 				0A6888CD207AEE8F00BBA29F /* Storyboards */,
 				0A6888CE207AEEA000BBA29F /* Supporting Files */,
+				52A79EFC211E1AA800902C32 /* Utility */,
 			);
 			path = "Spotify-iOS-Swift-Future";
 			sourceTree = "<group>";
@@ -151,9 +160,7 @@
 			children = (
 				0A6888AB207AEE2B00BBA29F /* AppDelegate.swift */,
 				0A6888B2207AEE2B00BBA29F /* Assets.xcassets */,
-				0AD9F205208285FA007BEDBD /* Extensions.swift */,
 				0A6888B7207AEE2B00BBA29F /* Info.plist */,
-				0AD9F20720828632007BEDBD /* TrackPosition.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -161,9 +168,9 @@
 		0A6888CF207AEEAF00BBA29F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0A6888E4207AF17C00BBA29F /* LoginViewController.swift */,
 				0A6888E0207AF15900BBA29F /* PlayerViewController.swift */,
 				0A6888E2207AF16C00BBA29F /* WebViewController.swift */,
-				0A6888E4207AF17C00BBA29F /* LoginViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -175,6 +182,19 @@
 				0A6888D8207AF03C00BBA29F /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		52A79EFC211E1AA800902C32 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				52A79EFD211E1B1400902C32 /* AVAudioSession+Activate.swift */,
+				52A79EFF211E1B2400902C32 /* Double+MinutesSeconds.swift */,
+				52A79F01211E1C2900902C32 /* NotificationCenter+TypeSafe.swift */,
+				52A79F03211E1C4800902C32 /* Notifications+Names.swift */,
+				52A79EFA211E199D00902C32 /* Secrets.swift */,
+				0AD9F20720828632007BEDBD /* TrackPosition.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,7 +242,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = FFR;
 				TargetAttributes = {
 					0A6888A7207AEE2B00BBA29F = {
@@ -286,9 +306,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A6888E5207AF17C00BBA29F /* LoginViewController.swift in Sources */,
-				0AD9F206208285FA007BEDBD /* Extensions.swift in Sources */,
+				52A79F04211E1C4800902C32 /* Notifications+Names.swift in Sources */,
+				52A79EFB211E199D00902C32 /* Secrets.swift in Sources */,
+				52A79F00211E1B2400902C32 /* Double+MinutesSeconds.swift in Sources */,
 				0A6888E3207AF16D00BBA29F /* WebViewController.swift in Sources */,
 				0A6888AC207AEE2B00BBA29F /* AppDelegate.swift in Sources */,
+				52A79EFE211E1B1400902C32 /* AVAudioSession+Activate.swift in Sources */,
+				52A79F02211E1C2900902C32 /* NotificationCenter+TypeSafe.swift in Sources */,
 				0A6888DD207AF13A00BBA29F /* SpotifyMusicPlayer.swift in Sources */,
 				0A6888E1207AF15900BBA29F /* PlayerViewController.swift in Sources */,
 				0AD9F20820828632007BEDBD /* TrackPosition.swift in Sources */,
@@ -339,6 +363,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -346,6 +371,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -396,6 +422,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -403,6 +430,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
