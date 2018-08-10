@@ -25,6 +25,7 @@
 		52A79F00211E1B2400902C32 /* Double+MinutesSeconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A79EFF211E1B2400902C32 /* Double+MinutesSeconds.swift */; };
 		52A79F02211E1C2900902C32 /* NotificationCenter+TypeSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A79F01211E1C2900902C32 /* NotificationCenter+TypeSafe.swift */; };
 		52A79F04211E1C4800902C32 /* Notifications+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A79F03211E1C4800902C32 /* Notifications+Names.swift */; };
+		52A79F06211E21E000902C32 /* URL+LoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A79F05211E21E000902C32 /* URL+LoadImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		52A79EFF211E1B2400902C32 /* Double+MinutesSeconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+MinutesSeconds.swift"; sourceTree = "<group>"; };
 		52A79F01211E1C2900902C32 /* NotificationCenter+TypeSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+TypeSafe.swift"; sourceTree = "<group>"; };
 		52A79F03211E1C4800902C32 /* Notifications+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications+Names.swift"; sourceTree = "<group>"; };
+		52A79F05211E21E000902C32 /* URL+LoadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+LoadImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				52A79F03211E1C4800902C32 /* Notifications+Names.swift */,
 				52A79EFA211E199D00902C32 /* Secrets.swift */,
 				0AD9F20720828632007BEDBD /* TrackPosition.swift */,
+				52A79F05211E21E000902C32 /* URL+LoadImage.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				0A6888E3207AF16D00BBA29F /* WebViewController.swift in Sources */,
 				0A6888AC207AEE2B00BBA29F /* AppDelegate.swift in Sources */,
 				52A79EFE211E1B1400902C32 /* AVAudioSession+Activate.swift in Sources */,
+				52A79F06211E21E000902C32 /* URL+LoadImage.swift in Sources */,
 				52A79F02211E1C2900902C32 /* NotificationCenter+TypeSafe.swift in Sources */,
 				0A6888DD207AF13A00BBA29F /* SpotifyMusicPlayer.swift in Sources */,
 				0A6888E1207AF15900BBA29F /* PlayerViewController.swift in Sources */,

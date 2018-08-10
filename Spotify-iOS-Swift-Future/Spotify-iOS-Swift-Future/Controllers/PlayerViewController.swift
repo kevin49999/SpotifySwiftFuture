@@ -44,20 +44,8 @@ class PlayerViewController: UIViewController {
         artistLabel.text = track.artistName
         endTimeLabel.text = track.duration.minutesSeconds()
         if let albumCoverURLString = track.albumCoverArtURL, let albumCoverURL = URL(string: albumCoverURLString) {
-            setAlbumCoverWithURL(url: albumCoverURL)
-        }
-    }
-    
-    private func setAlbumCoverWithURL(url: URL) {
-        DispatchQueue.global(qos: .background).async {
-            do {
-                let imageData = try Data(contentsOf: url, options: [])
-                let image = UIImage(data: imageData)
-                DispatchQueue.main.async {
-                    self.albumImageView.image = image
-                }
-            } catch let error {
-                print(error.localizedDescription)
+            albumCoverURL.loadImage { [weak self] image in
+                self?.albumImageView.image = image
             }
         }
     }
