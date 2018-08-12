@@ -43,7 +43,7 @@ class PlayerViewController: UIViewController {
         songLabel.text = track.name
         artistLabel.text = track.artistName
         endTimeLabel.text = track.duration.minutesSeconds()
-        if let albumCoverURLString = track.albumCoverArtURL, let albumCoverURL = URL(string: albumCoverURLString) {
+        if let albumCoverURL = track.albumCoverURL {
             albumCoverURL.loadImage { [weak self] image in
                 self?.albumImageView.image = image
             }
